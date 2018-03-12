@@ -91,7 +91,7 @@ if [[ $productCount != 0 ]]; then
   -k \
   --request-timeout 3600 \
   upload-product \
-  -p $FILE_PATH
+  -p $file
         echo "============ Uploading product $file End ============"
     done
 fi
