@@ -84,8 +84,8 @@ if [[ $productCount != 0 ]]; then
     for file in pivnet-product/*.pivotal; do
         echo "============ Uploading product $file Begin ============"
         om-linux -t https://35.172.169.244 \
-  --client-id "${OPSMAN_CLIENT_ID}" \
-  --client-secret "${OPSMAN_CLIENT_SECRET}" \
+  --client-id "pcflab" \
+  --client-secret "pcflab" \
   -u "pcflab" \
   -p "pcflab" \
   -k \
