@@ -3,7 +3,7 @@
 set -eu
 
 if [[ -n "$NO_PROXY" ]]; then
-  echo "$OM_IP 35.172.169.244" >> /etc/hosts
+  echo "$OM_IP $OPSMAN_DOMAIN_OR_IP_ADDRESS" >> /etc/hosts
 fi
 
 STEMCELL_VERSION=$(
@@ -26,7 +26,7 @@ STEMCELL_VERSION=$(
 if [ -n "$STEMCELL_VERSION" ]; then
   diagnostic_report=$(
     om-linux \
-      --target https://35.172.169.244 \
+      --target https://$OPSMAN_DOMAIN_OR_IP_ADDRESS \
       --client-id "${OPSMAN_CLIENT_ID}" \
       --client-secret "${OPSMAN_CLIENT_SECRET}" \
       --username "$OPS_MGR_USR" \
@@ -67,7 +67,7 @@ if [ -n "$STEMCELL_VERSION" ]; then
       exit 1
     fi
 
-    om-linux -t https://35.172.169.244 \
+    om-linux -t https://$OPSMAN_DOMAIN_OR_IP_ADDRESS \
       --client-id "${OPSMAN_CLIENT_ID}" \
       --client-secret "${OPSMAN_CLIENT_SECRET}" \
       -u "$OPS_MGR_USR" \
@@ -83,7 +83,7 @@ productCount=$(ls pivnet-product/*.pivotal 2> /dev/null | wc -l)
 if [[ $productCount != 0 ]]; then
     for file in pivnet-product/*.pivotal; do
         echo "============ Uploading product $file Begin ============"
-        om-linux -t https://35.172.169.244 \
+        om-linux -t https://$opsman_domain_or_ip_address \
   --client-id "pcflab" \
   --client-secret "pcflab" \
   -u "pcflab" \
