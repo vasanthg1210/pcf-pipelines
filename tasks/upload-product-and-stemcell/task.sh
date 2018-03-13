@@ -79,20 +79,13 @@ if [ -n "$STEMCELL_VERSION" ]; then
 fi
 
 # Should the slug contain more than one product, pick only the first.
-productCount=$(ls pivnet-product/*.pivotal 2> /dev/null | wc -l)
-if [[ $productCount != 0 ]]; then
-    for file in pivnet-product/*.pivotal; do
-        echo "============ Uploading product $file Begin ============"
-        om-linux -t https://$opsman_domain_or_ip_address \
-  --client-id "pcflab" \
-  --client-secret "pcflab" \
-  -u "pcflab" \
-  -p "pcflab" \
+FILE_PATH=`find ./pivnet-product -name *.pivotal | sort | head -1`
+om-linux -t https://$OPSMAN_DOMAIN_OR_IP_ADDRESS \
+  --client-id "${OPSMAN_CLIENT_ID}" \
+  --client-secret "${OPSMAN_CLIENT_SECRET}" \
+  -u "$OPS_MGR_USR" \
+  -p "$OPS_MGR_PWD" \
   -k \
   --request-timeout 3600 \
   upload-product \
-  -p $file
-        echo "============ Uploading product $file End ============"
-    done
-fi
-
+  -p $FILE_PATH
