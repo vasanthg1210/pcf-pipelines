@@ -7,7 +7,7 @@ if [[ -n "$NO_PROXY" ]]; then
 fi
 
 STEMCELL_VERSION=$(
-  cat ./pivnet-product/metadata.json |
+  cat ./pivnet-product2/metadata.json |
   jq --raw-output \
     '
     [
@@ -54,7 +54,7 @@ if [ -n "$STEMCELL_VERSION" ]; then
         else
           "stemcells"
         end
-        ' < pivnet-product/metadata.json
+        ' < pivnet-product2/metadata.json
     )
 
     pivnet-cli login --api-token="$PIVNET_API_TOKEN"
